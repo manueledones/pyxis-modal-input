@@ -1,0 +1,39 @@
+// Since PurgeCSS is no added yet, let's import only base and foundations as described here:
+// https://github.com/primait/pyxis/tree/master/packages/pyxis-scss#include-only-base-and-foundations
+@use "@pyxis/scss/src/scss/base";
+@use "@pyxis/scss/src/scss/foundations";
+@use "@pyxis/scss/src/scss/foundations/colors";
+@use "@pyxis/scss/src/scss/foundations/layout";
+@use "@pyxis/scss/src/scss/foundations/typography";
+@use "@pyxis/scss/src/scss/foundations/spacings";
+
+// Let's include only the styles for the components we're actually using
+@use "@pyxis/scss/src/scss/components/accordion";
+@use "@pyxis/scss/src/scss/components/badge";
+@use "@pyxis/scss/src/scss/components/buttonCard";
+@use "@pyxis/scss/src/scss/components/buttons";
+@use "@pyxis/scss/src/scss/components/divider";
+@use "@pyxis/scss/src/scss/components/forms";
+@use "@pyxis/scss/src/scss/components/icons";
+@use "@pyxis/scss/src/scss/components/list";
+@use "@pyxis/scss/src/scss/components/loaders/loader";
+@use "@pyxis/scss/src/scss/components/loaders/spinner";
+@use "@pyxis/scss/src/scss/components/modal";
+@use "@pyxis/scss/src/scss/components/progressIndicator";
+
+// include pyxis utility classes, e.g display-flex, ...
+@include colors.createAtoms();
+@include layout.createAtoms();
+@include typography.createAtoms();
+@include spacings.createAtoms();
+
+// Pyxis uses apply font-family to :root element
+// but it doesn't work inside shadow DOM
+// https://github.com/primait/pyxis/pull/1177
+// https://developer.mozilla.org/en-US/docs/Web/CSS/:host
+:host {
+  @include typography.globalSettings();
+  box-sizing: border-box;
+  color: foundations.color(neutralBase);
+  overflow-x: hidden;
+}

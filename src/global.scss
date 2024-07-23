@@ -1,0 +1,9 @@
+// Pyxis set css variables on :root element (https://github.com/primait/pyxis/blob/0b2eb0ad4f7436921c34a1b16ed3b003d1e99616/packages/pyxis-scss/src/scss/foundations/_colors.scss#L46)
+// but this doesn't work inside shadow DOM (:host should be used instead).
+// This file is imported using
+// import global from "./global.scss?inline"
+// in web-component.tsx and put in a <style> element under <head> element at the root of the application.
+
+// Ideally this should be removed from here and include it only once in the host application
+// to prevent multiple web-components set/override the same style
+@import "@pyxis/scss/src/scss/cssVariables";
