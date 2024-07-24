@@ -19,6 +19,63 @@ export const App: React.FC<Props> = () => {
   return (
     <>
 
+<p>Here is the list of issues we're having when the project is built as a webcomponent.</p>
+<p>
+  <ul>
+
+  <li>npm run build</li>
+  <li>copy dist/index.js in the `script` element of example.html</li>
+  <li>serve example.html (e.g npx serve)</li>
+  </ul>
+</p>
+
+<h1>1. Issues with focus different inputs inside modal</h1>
+
+<p>Here I have 2 inputs, I can swich focus between the two, but inside Modal does not work</p>
+    <input placeholder="edit me"></input>
+    <Input
+          label="label"
+          name="name"
+          onChange={(e) => setDocumentName2(e)}
+          placeholder="placeholder"
+          value={documentName2}
+        />
+
+    <Button onClick={() => setIsOpen(true)}>Open</Button>
+    <Modal
+    id="mymodal"
+      isOpen={isOpen}
+      portalContainer={portalContainer}
+      hasClosingButton={false}
+      onClose={() => {
+        setIsOpen(false);
+        console.log('Global callback');
+      }}
+      
+    >
+      {() => ([
+        <Modal.Header closeLabel="Close modal" title="Modal Title" />,
+        <Modal.Content>
+
+        <input placeholder="edit me"></input>
+
+        <Input
+          label="label"
+          name="name"
+          onChange={(e) => setDocumentName2(e)}
+          placeholder="placeholder"
+          value={documentName2}
+        />
+           
+        </Modal.Content>,
+        <Modal.Footer buttons={[]}
+        />,
+      ])}
+    </Modal>
+
+
+      
+    <h1>2. Select doesn't open using mouseclick, only with keyboard (spacebar)</h1>
 <Select
 value="black"
   items={[
@@ -73,21 +130,17 @@ value="black"
   placeholder="Select an option..."
 />
 
-    <input placeholder="edit me"></input>
-    <Input
-          label="label"
-          name="name"
-          onChange={(e) => setDocumentName2(e)}
-          placeholder="placeholder"
-          value={documentName2}
-        />
+
+
+
+<h1>3. Modal with hasClosingButton=true closes itself clicking anywhere inside the modal</h1>
 
     <Button onClick={() => setIsOpen(true)}>Open</Button>
     <Modal
     id="mymodal"
       isOpen={isOpen}
       portalContainer={portalContainer}
-      hasClosingButton={false}
+      hasClosingButton={true}
       onClose={() => {
         setIsOpen(false);
         console.log('Global callback');
