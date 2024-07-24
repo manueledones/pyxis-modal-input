@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.scss'
 import { Button, Input, Modal } from '@pyxis/react';
 import { Select } from '@pyxis/react';
+import {FocusScope} from 'react-aria';
 
 export interface Props {
   
@@ -10,6 +11,7 @@ export interface Props {
 export const App: React.FC<Props> = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [documentName2, setDocumentName2] = useState('document');
+  const [isOpenAria, setOpenAria] = useState(false);
 
   const portalContainer =
   document
@@ -73,6 +75,19 @@ export const App: React.FC<Props> = () => {
       ])}
     </Modal>
 
+        <br/>
+        I have the same behavior/bug simply using React Aria focusscope...<br/>
+        <button onClick={() => setOpenAria(true)}>Open React Aria focusscope</button>
+      {isOpenAria &&
+        (
+          <FocusScope contain restoreFocus autoFocus>
+            <label htmlFor="first-input">First Input</label>
+            <input id="first-input" />
+            <label htmlFor="second-input">Second Input</label>
+            <input id="second-input" />
+            <button onClick={() => setOpenAria(false)}>Close</button>
+          </FocusScope>
+        )}
 
       
     <h1>2. Select doesn't open using mouseclick, only with keyboard (spacebar)</h1>
