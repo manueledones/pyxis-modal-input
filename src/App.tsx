@@ -116,6 +116,7 @@ export const App: React.FC<Props> = () => {
 <hr />
 <hr />
     <h1>2. Select/Autocomplete doesn't open using mouseclick, only with keyboard (spacebar)</h1>
+    <p>This looks somehow related to the useClickOutside, if removed, it works property even inside the web-component version</p>
 <Select
 value="black"
   items={[
@@ -165,7 +166,7 @@ value="black"
     }
   ]}
   label="Label"
-  name="default"
+  name="select_1"
   onChange={() => {}}
   placeholder="Select an option..."
 />
@@ -224,7 +225,7 @@ value="green"
     }
   ]}
   label="Label"
-  name="default"
+  name="autocomplete_1"
   onChange={function fa(){}}
   placeholder="Choose a color"
 />
