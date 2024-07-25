@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.scss'
-import { Button, Input, Modal } from '@pyxis/react';
+import { Autocomplete, Button, Input, Modal } from '@pyxis/react';
 import { Select } from '@pyxis/react';
 import {FocusScope} from 'react-aria';
 
@@ -9,8 +9,10 @@ export interface Props {
 }
 
 export const App: React.FC<Props> = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [documentName2, setDocumentName2] = useState('document');
+  const [isOpen1, setIsOpen1] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
+
+  const [documentName, setDocumentName] = useState('');
   const [isOpenAria, setOpenAria] = useState(false);
 
   const portalContainer =
@@ -31,26 +33,35 @@ export const App: React.FC<Props> = () => {
   </ul>
 </p>
 
+<hr />
+<hr />
+<hr />
+
 <h1>1. Issues with focus different inputs inside modal</h1>
 
 <p>Here I have 2 inputs, I can swich focus between the two, but inside Modal does not work</p>
-    <input placeholder="edit me"></input>
-    <Input
+<Input
           label="label"
           name="name"
-          onChange={(e) => setDocumentName2(e)}
-          placeholder="placeholder"
-          value={documentName2}
+          onChange={(e) => setDocumentName(e)}
+          placeholder="edit me 1"
+          value={documentName}
+        />    <Input
+          label="label"
+          name="name"
+          onChange={(e) => setDocumentName(e)}
+          placeholder="edit me 2"
+          value={documentName}
         />
 
-    <Button onClick={() => setIsOpen(true)}>Open</Button>
+    <Button onClick={() => setIsOpen1(true)}>Open</Button>
     <Modal
-    id="mymodal"
-      isOpen={isOpen}
+    id="mymodal1"
+      isOpen={isOpen1}
       portalContainer={portalContainer}
       hasClosingButton={false}
       onClose={() => {
-        setIsOpen(false);
+        setIsOpen1(false);
         console.log('Global callback');
       }}
       
@@ -59,14 +70,20 @@ export const App: React.FC<Props> = () => {
         <Modal.Header closeLabel="Close modal" title="Modal Title" />,
         <Modal.Content>
 
-        <input placeholder="edit me"></input>
+<Input
+          label="label"
+          name="name"
+          onChange={() => {}}
+          placeholder="placeholder"
+          value={documentName}
+        />
 
         <Input
           label="label"
           name="name"
-          onChange={(e) => setDocumentName2(e)}
+          onChange={(e) => setDocumentName(e)}
           placeholder="placeholder"
-          value={documentName2}
+          value={documentName}
         />
            
         </Modal.Content>,
@@ -76,21 +93,29 @@ export const App: React.FC<Props> = () => {
     </Modal>
 
         <br/>
-        I have the same behavior/bug simply using React Aria focusscope...<br/>
-        <button onClick={() => setOpenAria(true)}>Open React Aria focusscope</button>
+<br/>
+
+        I have the exact same behavior/bug simply using React Aria focusscope.<br/>
+        If you click on the button 2 inputs and a Close button will appear.<br/>
+        In the no-webcomponent version you can tab between these 3 elements.<br/>
+        In the webcomponent version you cannot move the focus from the 1st input to the 2nd, but only from the 2nd to the 1st.
+        <br/>
+        <Button onClick={() => setOpenAria(true)}>Open React Aria focusscope</Button>
       {isOpenAria &&
         (
           <FocusScope contain restoreFocus autoFocus>
             <label htmlFor="first-input">First Input</label>
-            <input id="first-input" />
+            <input id="first-input" placeholder='edit me 1' />
             <label htmlFor="second-input">Second Input</label>
-            <input id="second-input" />
-            <button onClick={() => setOpenAria(false)}>Close</button>
+            <input id="second-input" placeholder='edit me 2' />
+            <Button onClick={() => setOpenAria(false)}>Close</Button>
           </FocusScope>
         )}
 
-      
-    <h1>2. Select doesn't open using mouseclick, only with keyboard (spacebar)</h1>
+<hr />
+<hr />
+<hr />
+    <h1>2. Select/Autocomplete doesn't open using mouseclick, only with keyboard (spacebar)</h1>
 <Select
 value="black"
   items={[
@@ -146,18 +171,78 @@ value="black"
 />
 
 
+<Autocomplete
+value="green"
+  items={[
+    {
+      label: 'Beige',
+      value: 'beige'
+    },
+    {
+      label: 'Black',
+      value: 'black'
+    },
+    {
+      label: 'Blue',
+      value: 'blue'
+    },
+    {
+      label: 'Green',
+      value: 'green'
+    },
+    {
+      label: 'Grey',
+      value: 'grey'
+    },
+    {
+      label: 'Light blue',
+      value: 'light blue'
+    },
+    {
+      label: 'Orange',
+      value: 'orange'
+    },
+    {
+      label: 'Pink',
+      value: 'pink'
+    },
+    {
+      label: 'Red',
+      value: 'red'
+    },
+    {
+      label: 'Violet',
+      value: 'violet'
+    },
+    {
+      label: 'White',
+      value: 'white'
+    },
+    {
+      label: 'Yellow',
+      value: 'yellow'
+    }
+  ]}
+  label="Label"
+  name="default"
+  onChange={function fa(){}}
+  placeholder="Choose a color"
+/>
 
 
+<hr />
+<hr />
+<hr />
 <h1>3. Modal with hasClosingButton=true closes itself clicking anywhere inside the modal</h1>
 
-    <Button onClick={() => setIsOpen(true)}>Open</Button>
+    <Button onClick={() => setIsOpen2(true)}>Open</Button>
     <Modal
     id="mymodal"
-      isOpen={isOpen}
+      isOpen={isOpen2}
       portalContainer={portalContainer}
       hasClosingButton={true}
       onClose={() => {
-        setIsOpen(false);
+        setIsOpen2(false);
         console.log('Global callback');
       }}
       
@@ -166,14 +251,19 @@ value="black"
         <Modal.Header closeLabel="Close modal" title="Modal Title" />,
         <Modal.Content>
 
-        <input placeholder="edit me"></input>
-
+<Input
+          label="label"
+          name="name"
+          onChange={(e) => setDocumentName(e)}
+          placeholder="edit me 1"
+          value={documentName}
+        />
         <Input
           label="label"
           name="name"
-          onChange={(e) => setDocumentName2(e)}
-          placeholder="placeholder"
-          value={documentName2}
+          onChange={(e) => setDocumentName(e)}
+          placeholder="edit me 2"
+          value={documentName}
         />
            
         </Modal.Content>,
