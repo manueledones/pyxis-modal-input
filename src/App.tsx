@@ -116,7 +116,12 @@ export const App: React.FC<Props> = () => {
 <hr />
 <hr />
     <h1>2. Select/Autocomplete doesn't open using mouseclick, only with keyboard (spacebar)</h1>
-    <p>This looks somehow related to the useClickOutside, if removed, it works property even inside the web-component version</p>
+    <p>This looks somehow related to the useClickOutside, if removed, it works property even inside the web-component version.
+      <br />
+      In the web-component version event.target is <pre>{
+        
+        `<document-management> #shadow-root</document-management>`}</pre> and this is the issue I think.
+    </p>
 <Select
 value="black"
   items={[
