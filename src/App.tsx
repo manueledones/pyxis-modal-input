@@ -13,6 +13,7 @@ export const App: React.FC<Props> = () => {
   const [isOpen2, setIsOpen2] = useState(false);
 
   const [documentName, setDocumentName] = useState('');
+
   const [isOpenAria, setOpenAria] = useState(false);
 
   const portalContainer =
@@ -24,14 +25,12 @@ export const App: React.FC<Props> = () => {
     <>
 
 <p>Here is the list of issues we're having when the project is built as a webcomponent.</p>
-<p>
   <ul>
 
   <li>npm run build</li>
   <li>copy dist/index.js in the `script` element of example.html</li>
   <li>serve example.html (e.g npx serve)</li>
   </ul>
-</p>
 
 <hr />
 <hr />
@@ -73,7 +72,7 @@ export const App: React.FC<Props> = () => {
 <Input
           label="label"
           name="name"
-          onChange={() => {}}
+          onChange={(e) => setDocumentName(e)}
           placeholder="placeholder"
           value={documentName}
         />
@@ -116,12 +115,12 @@ export const App: React.FC<Props> = () => {
 <hr />
 <hr />
     <h1>2. Select/Autocomplete doesn't open using mouseclick, only with keyboard (spacebar)</h1>
-    <p>This looks somehow related to the useClickOutside, if removed, it works property even inside the web-component version.
+    This looks somehow related to the useClickOutside, if removed, it works property even inside the web-component version.
       <br />
       In the web-component version event.target is <pre>{
         
         `<document-management> #shadow-root</document-management>`}</pre> and this is the issue I think.
-    </p>
+    
 <Select
 value="black"
   items={[
